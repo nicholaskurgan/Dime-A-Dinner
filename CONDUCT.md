@@ -57,6 +57,34 @@ Examples of representing our community include using an official email address,
 posting via an official social media account, or acting as an appointed
 representative at an online or offline event.
 
+## Group Specific Questions
+
+**Decisions**: Majority. If split or cannot decide, SCRUM master will step in. Faywolfe if truly stuck.
+
+**Attendance**: Need to show up to agreed upon times, unless extreneous circumstance 
+is provided (family, illness, etc.). If you miss deadline, must complete work as soon as capable and keep
+group updated as to your progress.
+
+**Assignments**: Making PBI cards and take/dole out. Contribution is handled by grade.
+
+**Participation**: Communicating through Whatsapp; emails if necessary as backup. Properly
+assigning people to PBI cards evenly. Try to ensure there are tasks available for other
+group members who likely need more. Attempt tasks you feel you will do best at. If another member has a
+task you desire as you feel suited for it, request them if they are willing to give you the task.
+
+**Meeting times and locations/mediums**: In class and spontaneous and we need them. Attempt to schedule
+when people are able to meet. Communication through Whatsapp and Zoom.
+
+**Agendas and minutes/notes**: Will have notes document for group members to reference and add on to
+
+**Promptness**: Need by sprint deadline. Need good reason for lateness however.
+
+**Conversational courtesies**: Make sure all members hear/understand the discussion. Leave room
+for people to say their piece with group listening.
+
+**Enforcement/feedback**: Allow for group feedback. SCRUM master will handle enforcement or Faywolfe if
+things go too far.
+
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
