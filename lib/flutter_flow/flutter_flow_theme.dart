@@ -181,107 +181,108 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Inter Tight';
+  String get displayLargeFamily => 'Lexend';
   TextStyle get displayLarge => GoogleFonts.getFont(
-        'Inter Tight',
-        color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        'Lexend',
+        color: theme.secondaryText,
+        fontWeight: FontWeight.normal,
         fontSize: 64.0,
       );
-  String get displayMediumFamily => 'Inter Tight';
+  String get displayMediumFamily => 'Lexend';
   TextStyle get displayMedium => GoogleFonts.getFont(
-        'Inter Tight',
+        'Lexend',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 44.0,
       );
-  String get displaySmallFamily => 'Inter Tight';
+  String get displaySmallFamily => 'Lexend';
   TextStyle get displaySmall => GoogleFonts.getFont(
-        'Inter Tight',
+        'Lexend',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 36.0,
       );
-  String get headlineLargeFamily => 'Inter Tight';
+  String get headlineLargeFamily => 'Merriweather Sans';
   TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Inter Tight',
+        'Merriweather Sans',
         color: theme.primaryText,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w800,
         fontSize: 32.0,
       );
-  String get headlineMediumFamily => 'Inter Tight';
+  String get headlineMediumFamily => 'Lexend';
   TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Inter Tight',
+        'Lexend',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 28.0,
       );
-  String get headlineSmallFamily => 'Inter Tight';
+  String get headlineSmallFamily => 'Lexend Exa';
   TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Inter Tight',
+        'Lexend Exa',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 24.0,
+        fontSize: 16.0,
       );
-  String get titleLargeFamily => 'Inter Tight';
+  String get titleLargeFamily => 'Lexend Exa';
   TextStyle get titleLarge => GoogleFonts.getFont(
-        'Inter Tight',
+        'Lexend Exa',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 20.0,
+        fontStyle: FontStyle.normal,
       );
-  String get titleMediumFamily => 'Inter Tight';
+  String get titleMediumFamily => 'Lexend';
   TextStyle get titleMedium => GoogleFonts.getFont(
-        'Inter Tight',
+        'Lexend',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 18.0,
       );
-  String get titleSmallFamily => 'Inter Tight';
+  String get titleSmallFamily => 'Lexend';
   TextStyle get titleSmall => GoogleFonts.getFont(
-        'Inter Tight',
+        'Lexend',
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
         fontSize: 16.0,
       );
-  String get labelLargeFamily => 'Inter';
+  String get labelLargeFamily => 'Merriweather Sans';
   TextStyle get labelLarge => GoogleFonts.getFont(
-        'Inter',
+        'Merriweather Sans',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get labelMediumFamily => 'Inter';
+  String get labelMediumFamily => 'Lexend';
   TextStyle get labelMedium => GoogleFonts.getFont(
-        'Inter',
+        'Lexend',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 14.0,
+        fontSize: 18.0,
       );
-  String get labelSmallFamily => 'Inter';
+  String get labelSmallFamily => 'Merriweather Sans';
   TextStyle get labelSmall => GoogleFonts.getFont(
-        'Inter',
+        'Merriweather Sans',
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
       );
-  String get bodyLargeFamily => 'Inter';
+  String get bodyLargeFamily => 'Lexend';
   TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Inter',
+        'Lexend',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 16.0,
       );
-  String get bodyMediumFamily => 'Inter';
+  String get bodyMediumFamily => 'Merriweather Sans';
   TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Inter',
+        'Merriweather Sans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 14.0,
       );
-  String get bodySmallFamily => 'Inter';
+  String get bodySmallFamily => 'Merriweather Sans';
   TextStyle get bodySmall => GoogleFonts.getFont(
-        'Inter',
+        'Merriweather Sans',
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
         fontSize: 12.0,
