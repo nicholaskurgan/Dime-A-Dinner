@@ -1,8 +1,3 @@
-**Notes** (possible ideas, delete before due)
--Welcome screen/tutorial
--Decorated vs simple
--Different setup/information for displaying each item
-
 ## A/B Tests
 
 **A/B Test Name:** Welcome starting page or straight to login
