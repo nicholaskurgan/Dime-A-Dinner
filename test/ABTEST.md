@@ -38,5 +38,21 @@ sign up page if they need it.
 
 **Variations:** one layout has both lists on the same page, organized in a task bar. the other layout has two different screens both with their own single list and no navigational tab bar at the top of each page.
 
+---
+
+**A/B Test Name:** Tutorial After Signup
+
+**User Story Number:** US2
+
+**Metrics:** Adoption, user retention, task success
+
+**Hypothesis:** Offering an interactive tutorial will result in higher user engagement, task success, and adoption rates than a static, text-based tutorial. If users can interact with the interface during the onboarding process, they are more likely to understand the product features and feel confident using the app, which will improve retention.
+
+**Experiment:** This experiment compares two onboarding approaches: an interactive tutorial (Variation A) where users complete tasks within the app, and a static tutorial (Variation B) with text and screenshots. We’ll track completion rates, task success, and 7-day retention using Firebase Analytics to see which method better engages users and reduces early churn. The goal is to determine if hands-on interaction improves adoption and retention compared to a passive walkthrough.
+
+
+
+
+
 
 
