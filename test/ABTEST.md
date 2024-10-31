@@ -53,8 +53,18 @@ sign up page if they need it.
 **Variations:** Variation A will include an interactive tutorial with guided, in-app actions. Variation B will include a static tutorial with text/screenshots and “Next” buttons.
 
 
+---
+**A/B Test Name**: Recipe Information Display
 
+**User Story Number**: US5 and US6
 
+**Metrics**: User engagement
 
+**Hypothesis**: Presenting each recipe with a unique visual style could make each recipe more memorable and encourage users to explore a variety of recipes. A unique style may enhance users' enjoyment and interest, prompting them to spend more time viewing recipes and improve recall of recipe details. Alternatively, a uniform style across all recipes might make it easier to browse, compare, and focus on the content without visual distractions.
 
+**Experiment**: Users will be divided into two groups. One group will view recipes displayed with unique styles for each recipe (e.g., different colors, fonts, or layout styles), providing a visually distinct experience for each. The second group will see recipes displayed with a uniform style, where all recipes have the same colors, fonts, and layout. We’ll measure user engagement (number of recipes saved) to determine the impact of each approach on user experience.
+
+**Variations**:
+- **Unique Style Display**: Each recipe is shown with a distinct design, incorporating varied colors, fonts, and layouts to give each recipe a unique visual appeal.
+- **Uniform Style Display**: All recipes are displayed with a consistent style, using the same colors, fonts, and layout, ensuring a streamlined and uniform browsing experience.
 
