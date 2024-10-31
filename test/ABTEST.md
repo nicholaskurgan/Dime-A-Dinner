@@ -56,7 +56,7 @@ sign up page if they need it.
 ---
 **A/B Test Name**: Recipe Information Display
 
-**User Story Number**: US5 and US6
+**User Story Number**: US4
 
 **Metrics**: User engagement
 
