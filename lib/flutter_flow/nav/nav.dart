@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '/auth/base_auth_user_provider.dart';
 
 import '/index.dart';
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -72,13 +73,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const DummyWidget() : const StartWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const StartWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const DummyWidget() : const StartWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const StartWidget(),
         ),
         FFRoute(
           name: 'Start',
@@ -99,6 +100,39 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Signup',
           path: '/signup',
           builder: (context, params) => const SignupWidget(),
+        ),
+        FFRoute(
+          name: 'survey',
+          path: '/survey',
+          builder: (context, params) => const SurveyWidget(),
+        ),
+        FFRoute(
+          name: 'userLists',
+          path: '/userLists',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'userLists')
+              : const UserListsWidget(),
+        ),
+        FFRoute(
+          name: 'userRecipies',
+          path: '/userRecipies',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'userRecipies')
+              : const UserRecipiesWidget(),
+        ),
+        FFRoute(
+          name: 'userItems',
+          path: '/userItems',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'userItems')
+              : const UserItemsWidget(),
+        ),
+        FFRoute(
+          name: 'userSettings',
+          path: '/userSettings',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'userSettings')
+              : const UserSettingsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

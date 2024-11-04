@@ -21,6 +21,9 @@ class _StartWidgetState extends State<StartWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => StartModel());
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Start'});
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -37,80 +40,101 @@ class _StartWidgetState extends State<StartWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Page Title',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Lexend',
-                  color: Colors.white,
-                  fontSize: 22.0,
-                  letterSpacing: 0.0,
-                ),
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: Image.asset(
+                'assets/images/Background_beige_orange.png',
+              ).image,
+            ),
           ),
-          actions: const [],
-          centerTitle: false,
-          elevation: 2.0,
-        ),
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Align(
-                alignment: const AlignmentDirectional(0.0, -1.0),
-                child: Padding(
+          child: Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Align(
+                  alignment: const AlignmentDirectional(0.0, 0.0),
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 160.0, 0.0, 0.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.asset(
+                        'assets/images/Logo.png',
+                        width: double.infinity,
+                        height: 150.0,
+                        fit: BoxFit.contain,
+                        alignment: const Alignment(0.0, 0.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 80.0, 0.0, 0.0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        logFirebaseEvent('START_PAGE_GoLoginBtn_ON_TAP');
+                        logFirebaseEvent('GoLoginBtn_navigate_to');
+
+                        context.pushNamed('Login');
+                      },
+                      text: 'Login',
+                      options: FFButtonOptions(
+                        width: double.infinity,
+                        height: 70.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).burgundy,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleLarge.override(
+                                  fontFamily: 'Lexend Exa',
+                                  color: FlutterFlowTheme.of(context).beige,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      context.pushNamed('Login');
+                      logFirebaseEvent('START_PAGE_GoSignUpBtn_ON_TAP');
+                      logFirebaseEvent('GoSignUpBtn_navigate_to');
+
+                      context.pushNamed('Signup');
                     },
-                    text: 'Login',
+                    text: 'Sign up',
                     options: FFButtonOptions(
-                      height: 40.0,
+                      width: double.infinity,
+                      height: 70.0,
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
+                      color: FlutterFlowTheme.of(context).orange,
                       textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Lexend',
-                                color: Colors.white,
+                          FlutterFlowTheme.of(context).titleLarge.override(
+                                fontFamily: 'Lexend Exa',
+                                color: FlutterFlowTheme.of(context).beige,
                                 letterSpacing: 0.0,
                               ),
                       elevation: 0.0,
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(24.0),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    context.pushNamed('Signup');
-                  },
-                  text: 'Sign up',
-                  options: FFButtonOptions(
-                    height: 40.0,
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Lexend',
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                        ),
-                    elevation: 0.0,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
