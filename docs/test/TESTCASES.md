@@ -6,4 +6,4 @@ Oceane: https://docs.google.com/presentation/d/1JAlfQXchaELzUrIJdELg_3Re4FnhmPmm
 
 Jenn:
 
-Ryan:
+Ryan: https://docs.google.com/presentation/d/1lzKVP-jH37MAoxcXlidNERrStXV3oKhgSLZPNPhqJH8/edit?usp=sharing
