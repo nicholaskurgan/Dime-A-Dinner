@@ -16,4 +16,3 @@ This app provides simple, nutritious cooking advice tailored for students who st
 - Jennipher Day
 - Ryan Fister
 - Océane Poussin
-

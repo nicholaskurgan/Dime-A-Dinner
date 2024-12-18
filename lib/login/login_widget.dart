@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -43,7 +44,10 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -52,9 +56,9 @@ class _LoginWidgetState extends State<LoginWidget> {
           height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/Background_beige_orange.png',
+                'assets/images/Background_3.png',
               ).image,
             ),
           ),
@@ -83,6 +87,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        key: const ValueKey('LoginEmailTxt_1sc0'),
                         controller: _model.loginEmailTxtTextController,
                         focusNode: _model.loginEmailTxtFocusNode,
                         autofocus: false,
@@ -152,6 +157,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        key: const ValueKey('LoginPassTxt_sxlq'),
                         controller: _model.loginPassTxtTextController,
                         focusNode: _model.loginPassTxtFocusNode,
                         autofocus: false,
@@ -272,6 +278,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                         child: FFButtonWidget(
+                          key: const ValueKey('LoginBtn_kww7'),
                           onPressed: () async {
                             logFirebaseEvent('LOGIN_PAGE_LoginBtn_ON_TAP');
                             logFirebaseEvent('LoginBtn_auth');
@@ -293,9 +300,44 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 'Param 1': 'log_press',
                               },
                             );
-                            logFirebaseEvent('LoginBtn_navigate_to');
+                            logFirebaseEvent('LoginBtn_backend_call');
 
-                            context.pushNamedAuth('survey', context.mounted);
+                            await currentUserReference!.update({
+                              ...mapToFirestore(
+                                {
+                                  'login_count': FieldValue.increment(1),
+                                },
+                              ),
+                            });
+                            if (valueOrDefault(
+                                    currentUserDocument?.loginCount, 0) >
+                                5) {
+                              if (valueOrDefault<bool>(
+                                      currentUserDocument?.surveyTaken,
+                                      false) ==
+                                  true) {
+                                logFirebaseEvent('LoginBtn_navigate_to');
+
+                                context.pushNamedAuth(
+                                    'survey', context.mounted);
+                              } else {
+                                logFirebaseEvent('LoginBtn_backend_call');
+
+                                await currentUserReference!
+                                    .update(createUsersRecordData(
+                                  surveyTaken: true,
+                                ));
+                                logFirebaseEvent('LoginBtn_navigate_to');
+
+                                context.pushNamedAuth(
+                                    'survey', context.mounted);
+                              }
+                            } else {
+                              logFirebaseEvent('LoginBtn_navigate_to');
+
+                              context.pushNamedAuth(
+                                  'userLists', context.mounted);
+                            }
                           },
                           text: 'Log in',
                           options: FFButtonOptions(

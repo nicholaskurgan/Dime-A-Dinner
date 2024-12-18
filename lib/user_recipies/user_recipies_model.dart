@@ -1,4 +1,4 @@
-import '/components/recipe_widget.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'user_recipies_widget.dart' show UserRecipiesWidget;
 import 'package:flutter/material.dart';
@@ -11,35 +11,29 @@ class UserRecipiesModel extends FlutterFlowModel<UserRecipiesWidget> {
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
 
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // Models for recipe dynamic component.
-  late FlutterFlowDynamicModels<RecipeModel> recipeModels1;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode2;
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
-  // Models for recipe dynamic component.
-  late FlutterFlowDynamicModels<RecipeModel> recipeModels2;
+  // State field(s) for searchBar widget.
+  FocusNode? searchBarFocusNode;
+  TextEditingController? searchBarTextController;
+  String? Function(BuildContext, String?)? searchBarTextControllerValidator;
+  // Stores action output result for [Backend Call - API (spoon)] action in Search widget.
+  ApiCallResponse? apiResult5q7;
+  // State field(s) for MyRecipesSearch widget.
+  FocusNode? myRecipesSearchFocusNode;
+  TextEditingController? myRecipesSearchTextController;
+  String? Function(BuildContext, String?)?
+      myRecipesSearchTextControllerValidator;
+  List<String> simpleSearchResults = [];
 
   @override
-  void initState(BuildContext context) {
-    recipeModels1 = FlutterFlowDynamicModels(() => RecipeModel());
-    recipeModels2 = FlutterFlowDynamicModels(() => RecipeModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
   void dispose() {
     tabBarController?.dispose();
-    textFieldFocusNode1?.dispose();
-    textController1?.dispose();
+    searchBarFocusNode?.dispose();
+    searchBarTextController?.dispose();
 
-    recipeModels1.dispose();
-    textFieldFocusNode2?.dispose();
-    textController2?.dispose();
-
-    recipeModels2.dispose();
+    myRecipesSearchFocusNode?.dispose();
+    myRecipesSearchTextController?.dispose();
   }
 }

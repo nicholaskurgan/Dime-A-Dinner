@@ -36,16 +36,19 @@ class _StartWidgetState extends State<StartWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/Background_beige_orange.png',
+                'assets/images/Background_3.png',
               ).image,
             ),
           ),
@@ -53,21 +56,18 @@ class _StartWidgetState extends State<StartWidget> {
             padding: const EdgeInsetsDirectional.fromSTEB(25.0, 0.0, 25.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Align(
                   alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 160.0, 0.0, 0.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: Image.asset(
-                        'assets/images/Logo.png',
-                        width: double.infinity,
-                        height: 150.0,
-                        fit: BoxFit.contain,
-                        alignment: const Alignment(0.0, 0.0),
-                      ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset(
+                      'assets/images/Logo.png',
+                      width: double.infinity,
+                      height: 150.0,
+                      fit: BoxFit.contain,
+                      alignment: const Alignment(0.0, 0.0),
                     ),
                   ),
                 ),
@@ -77,6 +77,7 @@ class _StartWidgetState extends State<StartWidget> {
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 80.0, 0.0, 0.0),
                     child: FFButtonWidget(
+                      key: const ValueKey('GoLoginBtn_cnb8'),
                       onPressed: () async {
                         logFirebaseEvent('START_PAGE_GoLoginBtn_ON_TAP');
                         logFirebaseEvent('GoLoginBtn_navigate_to');

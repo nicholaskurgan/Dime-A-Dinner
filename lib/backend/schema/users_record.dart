@@ -50,6 +50,41 @@ class UsersRecord extends FirestoreRecord {
   int get metricRecipeCounter => _metricRecipeCounter ?? 0;
   bool hasMetricRecipeCounter() => _metricRecipeCounter != null;
 
+  // "login_count" field.
+  int? _loginCount;
+  int get loginCount => _loginCount ?? 0;
+  bool hasLoginCount() => _loginCount != null;
+
+  // "survey_taken" field.
+  bool? _surveyTaken;
+  bool get surveyTaken => _surveyTaken ?? false;
+  bool hasSurveyTaken() => _surveyTaken != null;
+
+  // "saved_recipes" field.
+  List<String>? _savedRecipes;
+  List<String> get savedRecipes => _savedRecipes ?? const [];
+  bool hasSavedRecipes() => _savedRecipes != null;
+
+  // "diet" field.
+  String? _diet;
+  String get diet => _diet ?? '';
+  bool hasDiet() => _diet != null;
+
+  // "groceryList" field.
+  List<DocumentReference>? _groceryList;
+  List<DocumentReference> get groceryList => _groceryList ?? const [];
+  bool hasGroceryList() => _groceryList != null;
+
+  // "pantryList" field.
+  List<DocumentReference>? _pantryList;
+  List<DocumentReference> get pantryList => _pantryList ?? const [];
+  bool hasPantryList() => _pantryList != null;
+
+  // "intolerances" field.
+  List<String>? _intolerances;
+  List<String> get intolerances => _intolerances ?? const [];
+  bool hasIntolerances() => _intolerances != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -59,6 +94,13 @@ class UsersRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _metricRecipeCounter =
         castToType<int>(snapshotData['metric_recipe_counter']);
+    _loginCount = castToType<int>(snapshotData['login_count']);
+    _surveyTaken = snapshotData['survey_taken'] as bool?;
+    _savedRecipes = getDataList(snapshotData['saved_recipes']);
+    _diet = snapshotData['diet'] as String?;
+    _groceryList = getDataList(snapshotData['groceryList']);
+    _pantryList = getDataList(snapshotData['pantryList']);
+    _intolerances = getDataList(snapshotData['intolerances']);
   }
 
   static CollectionReference get collection =>
@@ -102,6 +144,9 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   int? metricRecipeCounter,
+  int? loginCount,
+  bool? surveyTaken,
+  String? diet,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -112,6 +157,9 @@ Map<String, dynamic> createUsersRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'metric_recipe_counter': metricRecipeCounter,
+      'login_count': loginCount,
+      'survey_taken': surveyTaken,
+      'diet': diet,
     }.withoutNulls,
   );
 
@@ -123,13 +171,21 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
 
   @override
   bool equals(UsersRecord? e1, UsersRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.email == e2?.email &&
         e1?.displayName == e2?.displayName &&
         e1?.photoUrl == e2?.photoUrl &&
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.metricRecipeCounter == e2?.metricRecipeCounter;
+        e1?.metricRecipeCounter == e2?.metricRecipeCounter &&
+        e1?.loginCount == e2?.loginCount &&
+        e1?.surveyTaken == e2?.surveyTaken &&
+        listEquality.equals(e1?.savedRecipes, e2?.savedRecipes) &&
+        e1?.diet == e2?.diet &&
+        listEquality.equals(e1?.groceryList, e2?.groceryList) &&
+        listEquality.equals(e1?.pantryList, e2?.pantryList) &&
+        listEquality.equals(e1?.intolerances, e2?.intolerances);
   }
 
   @override
@@ -140,7 +196,14 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.metricRecipeCounter
+        e?.metricRecipeCounter,
+        e?.loginCount,
+        e?.surveyTaken,
+        e?.savedRecipes,
+        e?.diet,
+        e?.groceryList,
+        e?.pantryList,
+        e?.intolerances
       ]);
 
   @override
