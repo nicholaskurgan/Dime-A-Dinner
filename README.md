@@ -1,32 +1,18 @@
-# Dime A Dinner
+# Dime-A-Dinner
 
-A new Flutter project.
+### Overview
+This app provides simple, nutritious cooking advice tailored for students who struggle with maintaining a healthy diet. The goal is to help students improve their eating habits, avoid deficiencies, and create quick, balanced meals.
 
-## Getting Started
+### Features
+- Offers recipes that are both affordable and nutritious.
+- Easy-to-Follow Recipes: designed for minimal cooking skills and equipment.
+- Helps users find cheap local groceries that match the healthy recipes.
 
-FlutterFlow projects are built to run on the Flutter _stable_ release.
+### Installation
 
-## Integration Tests
+### Contributors 
 
-To test on a real iOS / Android device, first connect the device and run the following command from the root of the project:
-
-```bash
-flutter test integration_test/test.dart
-```
-
-To test on a web browser, first launch `chromedriver` as follows:
-```bash
-chromedriver --port=4444
-```
-
-Then from the root of the project, run the following command:
-```bash
-flutter drive \
-  --driver=test_driver/integration_test.dart \
-  --target=integration_test/test.dart \
-  -d chrome
-```
-
-Find more information about running Flutter integration tests [here](https://docs.flutter.dev/cookbook/testing/integration/introduction#5-run-the-integration-test).
-
-Refer to this guide for instructions on running the tests on [Firebase Test Lab](https://github.com/flutter/flutter/tree/main/packages/integration_test#firebase-test-lab).
+- Nicholas Kurgan
+- Jennipher Day
+- Ryan Fister
+- Océane Poussin
