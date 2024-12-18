@@ -38,7 +38,10 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -47,9 +50,9 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
           height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/Background_beige_orange.png',
+                'assets/images/Background_3.png',
               ).image,
             ),
           ),
@@ -77,14 +80,14 @@ class _UserSettingsWidgetState extends State<UserSettingsWidget> {
                         const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     iconPadding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Lexend',
-                          color: Colors.white,
+                    color: FlutterFlowTheme.of(context).burgundy,
+                    textStyle: FlutterFlowTheme.of(context).titleLarge.override(
+                          fontFamily: 'Lexend Exa',
+                          color: FlutterFlowTheme.of(context).beige,
                           letterSpacing: 0.0,
                         ),
                     elevation: 0.0,
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(24.0),
                   ),
                 ),
               ],

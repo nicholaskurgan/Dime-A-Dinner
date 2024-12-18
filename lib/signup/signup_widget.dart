@@ -47,7 +47,10 @@ class _SignupWidgetState extends State<SignupWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -56,9 +59,9 @@ class _SignupWidgetState extends State<SignupWidget> {
           height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/Background_light_green.png',
+                'assets/images/Background_4.png',
               ).image,
             ),
           ),

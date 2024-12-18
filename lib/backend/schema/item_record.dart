@@ -35,17 +35,17 @@ class ItemRecord extends FirestoreRecord {
   String get details => _details ?? '';
   bool hasDetails() => _details != null;
 
-  // "isPurchased" field.
-  bool? _isPurchased;
-  bool get isPurchased => _isPurchased ?? false;
-  bool hasIsPurchased() => _isPurchased != null;
+  // "itemImage" field.
+  String? _itemImage;
+  String get itemImage => _itemImage ?? '';
+  bool hasItemImage() => _itemImage != null;
 
   void _initializeFields() {
     _user = snapshotData['user'] as DocumentReference?;
     _title = snapshotData['title'] as String?;
     _price = castToType<double>(snapshotData['price']);
     _details = snapshotData['details'] as String?;
-    _isPurchased = snapshotData['isPurchased'] as bool?;
+    _itemImage = snapshotData['itemImage'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -86,7 +86,7 @@ Map<String, dynamic> createItemRecordData({
   String? title,
   double? price,
   String? details,
-  bool? isPurchased,
+  String? itemImage,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -94,7 +94,7 @@ Map<String, dynamic> createItemRecordData({
       'title': title,
       'price': price,
       'details': details,
-      'isPurchased': isPurchased,
+      'itemImage': itemImage,
     }.withoutNulls,
   );
 
@@ -110,12 +110,12 @@ class ItemRecordDocumentEquality implements Equality<ItemRecord> {
         e1?.title == e2?.title &&
         e1?.price == e2?.price &&
         e1?.details == e2?.details &&
-        e1?.isPurchased == e2?.isPurchased;
+        e1?.itemImage == e2?.itemImage;
   }
 
   @override
   int hash(ItemRecord? e) => const ListEquality()
-      .hash([e?.user, e?.title, e?.price, e?.details, e?.isPurchased]);
+      .hash([e?.user, e?.title, e?.price, e?.details, e?.itemImage]);
 
   @override
   bool isValidKey(Object? o) => o is ItemRecord;

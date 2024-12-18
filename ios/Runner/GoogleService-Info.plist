@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mycompany.dimeadinner</string>
+	<string>com.uricsc305.dimeadinner</string>
 	<key>PROJECT_ID</key>
 	<string>dime-a-dinner</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:817017699201:ios:7344a12337c64352a84680</string>
+	<string>1:817017699201:ios:85ca01f26f6a53a2a84680</string>
 </dict>
 </plist>

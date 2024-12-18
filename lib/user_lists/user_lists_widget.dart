@@ -1,7 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/add_item_pop_up_widget.dart';
-import '/components/item_widget.dart';
+import '/flutter_flow/flutter_flow_button_tabbar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -46,18 +46,22 @@ class _UserListsWidgetState extends State<UserListsWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: Container(
+          key: const ValueKey('Container_svdu'),
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/Background_beige_orange.png',
+                'assets/images/Background_3.png',
               ).image,
             ),
           ),
@@ -72,10 +76,8 @@ class _UserListsWidgetState extends State<UserListsWidget>
                     children: [
                       Align(
                         alignment: const Alignment(0.0, 0),
-                        child: TabBar(
-                          labelColor: FlutterFlowTheme.of(context).primaryText,
-                          unselectedLabelColor:
-                              FlutterFlowTheme.of(context).secondaryText,
+                        child: FlutterFlowButtonTabBar(
+                          useToggleButtonStyle: true,
                           labelStyle:
                               FlutterFlowTheme.of(context).titleMedium.override(
                                     fontFamily: 'Lexend',
@@ -86,12 +88,25 @@ class _UserListsWidgetState extends State<UserListsWidget>
                                     fontFamily: 'Lexend',
                                     letterSpacing: 0.0,
                                   ),
-                          indicatorColor: FlutterFlowTheme.of(context).burgundy,
+                          labelColor: FlutterFlowTheme.of(context).darkGreen,
+                          unselectedLabelColor:
+                              FlutterFlowTheme.of(context).burgundy,
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).lightGreen,
+                          unselectedBackgroundColor:
+                              FlutterFlowTheme.of(context).orange,
+                          borderWidth: 2.0,
+                          borderRadius: 8.0,
+                          elevation: 0.0,
+                          buttonMargin: const EdgeInsetsDirectional.fromSTEB(
+                              8.0, 0.0, 8.0, 0.0),
                           tabs: const [
                             Tab(
+                              key: ValueKey('ShoppingListTab_dta3'),
                               text: 'Shopping List',
                             ),
                             Tab(
+                              key: ValueKey('PantryListTab_686m'),
                               text: 'PantryList',
                             ),
                           ],
@@ -105,18 +120,9 @@ class _UserListsWidgetState extends State<UserListsWidget>
                         child: TabBarView(
                           controller: _model.tabBarController,
                           children: [
-                            StreamBuilder<List<ItemRecord>>(
-                              stream: queryItemRecord(
-                                queryBuilder: (itemRecord) => itemRecord
-                                    .where(
-                                      'user',
-                                      isEqualTo: currentUserReference,
-                                    )
-                                    .where(
-                                      'isPurchased',
-                                      isEqualTo: false,
-                                    ),
-                              ),
+                            StreamBuilder<UsersRecord>(
+                              stream: UsersRecord.getDocument(
+                                  currentUserReference!),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -133,53 +139,258 @@ class _UserListsWidgetState extends State<UserListsWidget>
                                     ),
                                   );
                                 }
-                                List<ItemRecord> listViewItemRecordList =
-                                    snapshot.data!;
 
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: listViewItemRecordList.length,
-                                  itemBuilder: (context, listViewIndex) {
-                                    final listViewItemRecord =
-                                        listViewItemRecordList[listViewIndex];
-                                    return
-                                        // want to add quantity and edit mode
-                                        Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
-                                      child: ItemWidget(
-                                        key: Key(
-                                            'Keyh12_${listViewIndex}_of_${listViewItemRecordList.length}'),
-                                        item: listViewItemRecord,
-                                        checkPurchase: () async {
-                                          logFirebaseEvent(
-                                              'USER_LISTS_Container_h12orvko_CALLBACK');
-                                          logFirebaseEvent('item_backend_call');
+                                final listViewUsersRecord = snapshot.data!;
 
-                                          await listViewItemRecord.reference
-                                              .update(createItemRecordData(
-                                            isPurchased: true,
-                                          ));
-                                        },
+                                return Builder(
+                                  builder: (context) {
+                                    final groceryItem = listViewUsersRecord
+                                        .groceryList
+                                        .toList();
+
+                                    return ListView.separated(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        0,
+                                        12.0,
+                                        0,
+                                        0,
                                       ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: groceryItem.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 12.0),
+                                      itemBuilder: (context, groceryItemIndex) {
+                                        final groceryItemItem =
+                                            groceryItem[groceryItemIndex];
+                                        return StreamBuilder<ItemRecord>(
+                                          stream: ItemRecord.getDocument(
+                                              groceryItemItem),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }
+
+                                            final containerItemRecord =
+                                                snapshot.data!;
+
+                                            return Container(
+                                              width: double.infinity,
+                                              height: 125.0,
+                                              constraints: const BoxConstraints(
+                                                maxWidth: 400.0,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(24.0),
+                                                  bottomRight:
+                                                      Radius.circular(24.0),
+                                                  topLeft:
+                                                      Radius.circular(24.0),
+                                                  topRight:
+                                                      Radius.circular(24.0),
+                                                ),
+                                                border: Border.all(
+                                                  color: Colors.white,
+                                                  width: 3.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                key: const ValueKey('Row_pdoy'),
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.network(
+                                                        containerItemRecord
+                                                            .itemImage,
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  8.0,
+                                                                  0.0,
+                                                                  8.0),
+                                                      child: Text(
+                                                        containerItemRecord
+                                                            .title
+                                                            .maybeHandleOverflow(
+                                                          maxChars: 10,
+                                                          replacement: '…',
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Exa',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, 0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          FlutterFlowIconButton(
+                                                            key: const ValueKey(
+                                                                'move_h116'),
+                                                            borderColor: Colors
+                                                                .transparent,
+                                                            borderRadius: 8.0,
+                                                            buttonSize: 40.0,
+                                                            icon: Icon(
+                                                              Icons.swap_horiz,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .darkGreen,
+                                                              size: 24.0,
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'USER_LISTS_PAGE_move_ON_TAP');
+                                                              logFirebaseEvent(
+                                                                  'move_backend_call');
+
+                                                              await currentUserReference!
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'pantryList':
+                                                                        FieldValue
+                                                                            .arrayUnion([
+                                                                      groceryItemItem
+                                                                    ]),
+                                                                    'groceryList':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      groceryItemItem
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                            },
+                                                          ),
+                                                          FlutterFlowIconButton(
+                                                            key: const ValueKey(
+                                                                'Delete_pn2m'),
+                                                            borderColor: Colors
+                                                                .transparent,
+                                                            borderRadius: 8.0,
+                                                            buttonSize: 40.0,
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .delete_outline,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .burgundy,
+                                                              size: 24.0,
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'USER_LISTS_PAGE_Delete_ON_TAP');
+                                                              logFirebaseEvent(
+                                                                  'Delete_backend_call');
+
+                                                              await listViewUsersRecord
+                                                                  .reference
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'groceryList':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      groceryItemItem
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              logFirebaseEvent(
+                                                                  'Delete_backend_call');
+                                                              await listViewUsersRecord
+                                                                  .reference
+                                                                  .delete();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
                                     );
                                   },
                                 );
                               },
                             ),
-                            StreamBuilder<List<ItemRecord>>(
-                              stream: queryItemRecord(
-                                queryBuilder: (itemRecord) => itemRecord
-                                    .where(
-                                      'user',
-                                      isEqualTo: currentUserReference,
-                                    )
-                                    .where(
-                                      'isPurchased',
-                                      isEqualTo: true,
-                                    ),
+                            StreamBuilder<List<UsersRecord>>(
+                              stream: queryUsersRecord(
+                                queryBuilder: (usersRecord) =>
+                                    usersRecord.where(
+                                  'uid',
+                                  isEqualTo: currentUserReference?.id,
+                                ),
+                                singleRecord: true,
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -197,35 +408,254 @@ class _UserListsWidgetState extends State<UserListsWidget>
                                     ),
                                   );
                                 }
-                                List<ItemRecord> listViewItemRecordList =
+                                List<UsersRecord> listViewUsersRecordList =
                                     snapshot.data!;
+                                // Return an empty Container when the item does not exist.
+                                if (snapshot.data!.isEmpty) {
+                                  return Container();
+                                }
+                                final listViewUsersRecord =
+                                    listViewUsersRecordList.isNotEmpty
+                                        ? listViewUsersRecordList.first
+                                        : null;
 
-                                return ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: listViewItemRecordList.length,
-                                  itemBuilder: (context, listViewIndex) {
-                                    final listViewItemRecord =
-                                        listViewItemRecordList[listViewIndex];
-                                    return Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 0.0, 0.0),
-                                      child: ItemWidget(
-                                        key: Key(
-                                            'Key5zt_${listViewIndex}_of_${listViewItemRecordList.length}'),
-                                        item: listViewItemRecord,
-                                        checkPurchase: () async {
-                                          logFirebaseEvent(
-                                              'USER_LISTS_Container_5ztxf6om_CALLBACK');
-                                          logFirebaseEvent('item_backend_call');
+                                return Builder(
+                                  builder: (context) {
+                                    final pantryItem = listViewUsersRecord
+                                            ?.pantryList
+                                            .toList() ??
+                                        [];
 
-                                          await listViewItemRecord.reference
-                                              .update(createItemRecordData(
-                                            isPurchased: false,
-                                          ));
-                                        },
+                                    return ListView.separated(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        0,
+                                        12.0,
+                                        0,
+                                        0,
                                       ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: pantryItem.length,
+                                      separatorBuilder: (_, __) =>
+                                          const SizedBox(height: 12.0),
+                                      itemBuilder: (context, pantryItemIndex) {
+                                        final pantryItemItem =
+                                            pantryItem[pantryItemIndex];
+                                        return StreamBuilder<ItemRecord>(
+                                          stream: ItemRecord.getDocument(
+                                              pantryItemItem),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }
+
+                                            final containerItemRecord =
+                                                snapshot.data!;
+
+                                            return Container(
+                                              width: double.infinity,
+                                              height: 125.0,
+                                              constraints: const BoxConstraints(
+                                                maxWidth: 400.0,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                borderRadius: const BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(24.0),
+                                                  bottomRight:
+                                                      Radius.circular(24.0),
+                                                  topLeft:
+                                                      Radius.circular(24.0),
+                                                  topRight:
+                                                      Radius.circular(24.0),
+                                                ),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .orange,
+                                                  width: 3.0,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                key: const ValueKey('Row_pywu'),
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.network(
+                                                        containerItemRecord
+                                                            .itemImage,
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        const AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  8.0,
+                                                                  0.0,
+                                                                  8.0),
+                                                      child: Text(
+                                                        containerItemRecord
+                                                            .title
+                                                            .maybeHandleOverflow(
+                                                          maxChars: 10,
+                                                          replacement: '…',
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Exa',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              1.0, 0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          FlutterFlowIconButton(
+                                                            key: const ValueKey(
+                                                                'move_gu3l'),
+                                                            borderColor: Colors
+                                                                .transparent,
+                                                            borderRadius: 8.0,
+                                                            buttonSize: 40.0,
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .swap_horiz_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .darkGreen,
+                                                              size: 24.0,
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'USER_LISTS_PAGE_move_ON_TAP');
+                                                              logFirebaseEvent(
+                                                                  'move_backend_call');
+
+                                                              await currentUserReference!
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'groceryList':
+                                                                        FieldValue
+                                                                            .arrayUnion([
+                                                                      pantryItemItem
+                                                                    ]),
+                                                                    'pantryList':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      pantryItemItem
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                            },
+                                                          ),
+                                                          FlutterFlowIconButton(
+                                                            borderColor: Colors
+                                                                .transparent,
+                                                            borderRadius: 8.0,
+                                                            buttonSize: 40.0,
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .delete_outline,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .burgundy,
+                                                              size: 24.0,
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              logFirebaseEvent(
+                                                                  'USER_LISTS_PAGE_Delete_ON_TAP');
+                                                              logFirebaseEvent(
+                                                                  'Delete_backend_call');
+
+                                                              await listViewUsersRecord!
+                                                                  .reference
+                                                                  .update({
+                                                                ...mapToFirestore(
+                                                                  {
+                                                                    'pantryList':
+                                                                        FieldValue
+                                                                            .arrayRemove([
+                                                                      pantryItemItem
+                                                                    ]),
+                                                                  },
+                                                                ),
+                                                              });
+                                                              logFirebaseEvent(
+                                                                  'Delete_backend_call');
+                                                              await pantryItemItem
+                                                                  .delete();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
                                     );
                                   },
                                 );
@@ -243,11 +673,12 @@ class _UserListsWidgetState extends State<UserListsWidget>
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                     child: FlutterFlowIconButton(
+                      key: const ValueKey('IconButton_1j17'),
                       borderColor: FlutterFlowTheme.of(context).darkGreen,
                       borderRadius: 24.0,
                       borderWidth: 3.0,
-                      buttonSize: 40.0,
-                      fillColor: FlutterFlowTheme.of(context).white,
+                      buttonSize: 50.0,
+                      fillColor: FlutterFlowTheme.of(context).lightGreen,
                       icon: Icon(
                         Icons.add,
                         color: FlutterFlowTheme.of(context).darkGreen,
@@ -262,7 +693,10 @@ class _UserListsWidgetState extends State<UserListsWidget>
                           context: context,
                           builder: (context) {
                             return GestureDetector(
-                              onTap: () => FocusScope.of(context).unfocus(),
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                                FocusManager.instance.primaryFocus?.unfocus();
+                              },
                               child: Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
                                 child: const AddItemPopUpWidget(),

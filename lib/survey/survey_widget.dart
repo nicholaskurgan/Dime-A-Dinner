@@ -42,7 +42,10 @@ class _SurveyWidgetState extends State<SurveyWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -51,9 +54,9 @@ class _SurveyWidgetState extends State<SurveyWidget> {
           height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
               image: Image.asset(
-                'assets/images/Background_beige_orange.png',
+                'assets/images/Background_3.png',
               ).image,
             ),
           ),
@@ -68,6 +71,7 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                   children: [
                     Text(
                       'How would you rate this app?',
+                      textAlign: TextAlign.center,
                       style:
                           FlutterFlowTheme.of(context).headlineLarge.override(
                                 fontFamily: 'Merriweather Sans',
@@ -102,7 +106,7 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                             const EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                         child: Text(
                           'Have any suggestions for us?',
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context)
                               .headlineLarge
                               .override(
@@ -116,6 +120,7 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                     SizedBox(
                       width: double.infinity,
                       child: TextFormField(
+                        key: const ValueKey('FeedbackTxt_odqd'),
                         controller: _model.feedbackTxtTextController,
                         focusNode: _model.feedbackTxtFocusNode,
                         autofocus: false,
@@ -194,6 +199,7 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       FFButtonWidget(
+                        key: const ValueKey('SubmitBtn_ipv1'),
                         onPressed: () async {
                           logFirebaseEvent('SURVEY_PAGE_SubmitBtn_ON_TAP');
                           logFirebaseEvent('SubmitBtn_google_analytics_event');
@@ -218,7 +224,7 @@ class _SurveyWidgetState extends State<SurveyWidget> {
                           });
                           logFirebaseEvent('SubmitBtn_navigate_to');
 
-                          context.pushNamed('userItems');
+                          context.pushNamed('userLists');
                         },
                         text: 'Submit Feedback',
                         options: FFButtonOptions(

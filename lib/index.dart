@@ -8,3 +8,4 @@ export '/user_lists/user_lists_widget.dart' show UserListsWidget;
 export '/user_recipies/user_recipies_widget.dart' show UserRecipiesWidget;
 export '/user_items/user_items_widget.dart' show UserItemsWidget;
 export '/user_settings/user_settings_widget.dart' show UserSettingsWidget;
+export '/filters_page/filters_page_widget.dart' show FiltersPageWidget;
